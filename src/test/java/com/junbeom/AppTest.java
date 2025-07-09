@@ -1,4 +1,4 @@
-package com.example;
+package com.junbeom;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

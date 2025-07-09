@@ -1,0 +1,3 @@
+@echo off
+echo Running Benchmark...
+java -cp "target/classes;local-repo/net/openhft/chronicle-core/2.19.1/chronicle-core-2.19.1.jar" com.junbeom.Benchmark
