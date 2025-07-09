@@ -1,3 +1,11 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.generatesMetadataFilesAtProjectRoot": true,
+    "files.exclude": {
+        "**/.project": true,
+        "**/.classpath": true,
+        "**/.settings/": true
+    },
+    "java.import.gradle.enabled": true,
+    "java.import.maven.enabled": true
 }
