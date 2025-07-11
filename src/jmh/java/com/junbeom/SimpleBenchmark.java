@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A simple benchmark to test JMH setup
  */
-@State(Scope.Benchmark)
+@State(Scope.Benchmark) 
 public class SimpleBenchmark {
 
     public static void main(String[] args) throws RunnerException {
