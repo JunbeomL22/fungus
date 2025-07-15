@@ -31,8 +31,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- Optionally: parameterized tests support -->
@@ -61,10 +61,6 @@
           <version>3.13.0</version>
         </plugin>
         <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
-        <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.4.2</version>
         </plugin>
@@ -85,6 +81,35 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.3.0</version>
+          <configuration>
+              <!-- HTML 리포트 생성 활성화 -->
+              <reportFormat>brief</reportFormat>
+              <useFile>true</useFile>
+              <printSummary>true</printSummary>
+              
+              <!-- 더 자세한 출력 -->
+              <redirectTestOutputToFile>false</redirectTestOutputToFile>
+              <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+        <configuration>
+            <source>21</source>
+            <!-- <target>21</target> 제거 - deprecated -->
+            <encoding>UTF-8</encoding>
+            <charset>UTF-8</charset>
+            <docencoding>UTF-8</docencoding>
+            <doclint>none</doclint>
+            <failOnError>false</failOnError>
+            <detectOfflineLinks>false</detectOfflineLinks>
+        </configuration>
+      </plugin>
       </plugins>
     </pluginManagement>
   </build>
