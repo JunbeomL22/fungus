@@ -58,4 +58,27 @@ public class AddBenchmark {
         int result = Add.add(state.intA, state.intB);
         blackhole.consume(result);
     }
+
+    @Benchmark
+    public void benchmarkAddDouble(BenchmarkState state, Blackhole blackhole) {
+        double result = Add.add(state.doubleA, state.doubleB);
+        blackhole.consume(result);
+    }
+
+    @Benchmark
+    public void benchmarkAddArray(BenchmarkState state, Blackhole blackhole) {
+        int result = Add.addAll(state.numbers);
+        blackhole.consume(result);
+    }
+
+    public static void main(String[] args) throws RunnerException {
+        Options options = new OptionsBuilder()
+                .include("com.junbeom.benchmark.AddBenchmark")
+                .forks(1)
+                .build();
+
+        new Runner(options).run();
+    }
 }
+
+
