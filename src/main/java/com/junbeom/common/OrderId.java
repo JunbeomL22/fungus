@@ -27,22 +27,22 @@ package com.junbeom.common;
  * @since 2025-07-17
  */
 public class OrderId {
-    private static final Long venueShift = 56L;
-    private static final Long venueMask = 0xFFL << venueShift; // 8 bits for venue
-    private static final Long orderMask = ~venueMask; // 56 bits for orde
+    public static final Long venueShift = 56L;
+    public static final Long venueMask = 0xFFL << venueShift; // 8 bits for venue
+    public static final Long orderMask = ~venueMask; // 56 bits for order
     
     public static final Long dummyVenue = 0L;
     public static final Long krxDrv = 1L;
     public static final Long krxKts = 2L;
     public static final Long smb = 3L;
 
-    private final Long rawOrderId;
+    private final Long combinedId;
 
     public OrderId(Long venue, Long orderId) {
         if (venue < 0 || venue > 0xFF) {
             throw new IllegalArgumentException("Venue must be between 0 and 255");
         }
-        this.rawOrderId = (venue << venueShift) | (orderId & orderMask);
+        this.combinedId = (venue << venueShift) | (orderId & orderMask);
     }
 
     /**
@@ -51,7 +51,16 @@ public class OrderId {
      * @return the order ID (56-bit value)
      */
     public Long orderId() {
-        return rawOrderId & orderMask;
+        return combinedId & orderMask;
+    }
+
+    /**
+     * Returns the raw combined ID containing both venue and order information.
+     *
+     * @return the combined ID (64-bit value)
+     */
+    public Long getCombinedId() {
+        return combinedId;
     }
 
     /**
@@ -60,7 +69,7 @@ public class OrderId {
      * @return the venue name as a string
      */
     public String venueName() {
-        Long venue = (rawOrderId & venueMask) >> venueShift;
+        Long venue = (combinedId & venueMask) >> venueShift;
         if (venue == dummyVenue) {
             return "dummy";
         } else if (venue == krxDrv) {

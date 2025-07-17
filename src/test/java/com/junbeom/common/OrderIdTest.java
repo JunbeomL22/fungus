@@ -6,6 +6,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static com.junbeom.common.OrderId.venueMask;
+import static com.junbeom.common.OrderId.venueShift;
+import static com.junbeom.common.OrderId.orderMask;
 
 @DisplayName("OrderId Class Tests")
 public class OrderIdTest {
@@ -67,5 +70,29 @@ public class OrderIdTest {
     void testOrderIdExtraction() {
         OrderId orderId = new OrderId(2L, 0xFFFFFFFFFFFFL); // Max 56-bit value
         assertEquals(0xFFFFFFFFFFFFL, orderId.orderId());
+    }
+
+    @Test
+    @DisplayName("Test getCombinedId method")
+    void testGetCombinedId() {
+        OrderId orderId = new OrderId(1L, 1000L);
+        Long combinedId = orderId.getCombinedId();
+
+        // Verify the combined ID structure
+        assertEquals(1L, (combinedId & venueMask) >> venueShift); // Venue should be 1
+        assertEquals(1000L, combinedId & orderMask); // Order ID should be 1000
+    }
+
+    @Test
+    @DisplayName("Test getCombinedId with different venues")
+    void testGetCombinedIdDifferentVenues() {
+        OrderId orderId1 = new OrderId(0L, 100L);
+        assertEquals(0L, (orderId1.getCombinedId() & venueMask) >> venueShift);
+
+        OrderId orderId2 = new OrderId(2L, 200L);
+        assertEquals(2L, (orderId2.getCombinedId() & venueMask) >> venueShift);
+
+        OrderId orderId3 = new OrderId(3L, 300L);
+        assertEquals(3L, (orderId3.getCombinedId() & venueMask) >> venueShift);
     }
 }
