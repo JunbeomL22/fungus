@@ -1,4 +1,4 @@
-package com.junbeom.utils;
+package com.junbeom.common;
 
 /**
  * Represents a unique order identifier that can differentiate between multiple venues.
@@ -45,10 +45,20 @@ public class OrderId {
         this.rawOrderId = (venue << venueShift) | (orderId & orderMask);
     }
 
+    /**
+     * Returns the order ID without the leading venue indicator.
+     *
+     * @return the order ID (56-bit value)
+     */
     public Long orderId() {
         return rawOrderId & orderMask;
     }
 
+    /**
+     * Returns the name of the venue associated with this order ID.
+     *
+     * @return the venue name as a string
+     */
     public String venueName() {
         Long venue = (rawOrderId & venueMask) >> venueShift;
         if (venue == dummyVenue) {

@@ -2,6 +2,7 @@ com\junbeom\App.class
 com\junbeom\benchmark\jmh_generated\AddBenchmark_jmhType_B1.class
 com\junbeom\benchmark\jmh_generated\AddBenchmark_jmhType_B2.class
 com\junbeom\benchmark\jmh_generated\AddBenchmark_BenchmarkState_jmhType_B1.class
+com\junbeom\common\OrderId.class
 com\junbeom\benchmark\jmh_generated\AddBenchmark_jmhType.class
 com\junbeom\benchmark\jmh_generated\AddBenchmark_jmhType_B3.class
 com\junbeom\benchmark\AddBenchmark.class
