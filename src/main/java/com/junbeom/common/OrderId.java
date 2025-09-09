@@ -46,7 +46,7 @@ public class OrderId {
     public static final Long orderMask = ~venueMask; // 56 bits for order
     
     public static final Long dummyVenue = 0L;
-    public static final Long krxDrv = 1L;
+    public static final Long krxGeneral = 1L;
     public static final Long krxKts = 2L;
     public static final Long smb = 3L;
 
@@ -95,8 +95,8 @@ public class OrderId {
         Long venue = (combinedId & venueMask) >> venueShift;
         if (venue == dummyVenue) {
             return "dummy";
-        } else if (venue == krxDrv) {
-            return "krxDrv";
+        } else if (venue == krxGeneral) {
+            return "krxGeneral";
         } else if (venue == krxKts) {
             return "krxKts";
         } else if (venue == smb) {
@@ -204,7 +204,7 @@ public class OrderId {
         private Long getVenueIdFromName(String venueName) {
             return switch (venueName.toLowerCase()) {
                 case "dummy" -> OrderId.dummyVenue;
-                case "krxdrv" -> OrderId.krxDrv;
+                case "krxgeneral" -> OrderId.krxGeneral;
                 case "krxkts" -> OrderId.krxKts;
                 case "smb" -> OrderId.smb;
                 default -> throw new IllegalArgumentException("Unknown venue name: " + venueName);
