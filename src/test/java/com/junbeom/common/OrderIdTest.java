@@ -1,9 +1,13 @@
 package com.junbeom.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+// import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Nested;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static com.junbeom.common.OrderId.venueMask;
@@ -13,12 +17,41 @@ import static com.junbeom.common.OrderId.orderMask;
 @DisplayName("OrderId Class Tests")
 public class OrderIdTest {
 
+    private ObjectMapper objectMapper;
+
+    @BeforeEach
+    void setUp() {
+        objectMapper = new ObjectMapper();
+    }
+
+    @Nested
+    @DisplayName("Jackson Serialization/Deserialization Tests")
+    class JacksonTests {
+
+        @Test
+        @DisplayName("Test serialization of OrderId")
+        void testSerialization() throws Exception {
+            OrderId orderId = new OrderId(1L, 123456789L);
+            String json = objectMapper.writeValueAsString(orderId);
+            assertEquals("{" + "\"venue\":\"krxGeneral\"," + "\"orderId\":123456789}", json);
+        }
+
+        @Test
+        @DisplayName("Test deserialization of OrderId")
+        void testDeserialization() throws Exception {
+            String json = "{" + "\"venue\":\"krxGeneral\"," + "\"orderId\":123456789}";
+            OrderId orderId = objectMapper.readValue(json, OrderId.class);
+            assertEquals(123456789L, orderId.orderId());
+            assertEquals("krxGeneral", orderId.venueName());
+        }
+    }
+
     @Test
     @DisplayName("Test OrderId creation with valid venue and orderId")
     void testOrderIdCreation() {
         OrderId orderId = new OrderId(1L, 1000L);
         assertEquals(1000L, orderId.orderId());
-        assertEquals("krxDrv", orderId.venueName());
+        assertEquals("krxGeneral", orderId.venueName());
     }
 
     @Test
@@ -33,7 +66,7 @@ public class OrderIdTest {
     @DisplayName("Test OrderId creation with different venues")
     void testDifferentVenues() {
         OrderId orderId1 = new OrderId(1L, 100L);
-        assertEquals("krxDrv", orderId1.venueName());
+        assertEquals("krxGeneral", orderId1.venueName());
 
         OrderId orderId2 = new OrderId(2L, 200L);
         assertEquals("krxKts", orderId2.venueName());
@@ -56,7 +89,7 @@ public class OrderIdTest {
     @DisplayName("Parameterized test for venue names")
     @CsvSource({
         "0, dummy",
-        "1, krxDrv",
+        "1, krxGeneral",
         "2, krxKts",
         "3, smb"
     })
