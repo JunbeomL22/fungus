@@ -33,16 +33,50 @@ public class OrderIdTest {
         void testSerialization() throws Exception {
             OrderId orderId = new OrderId(1L, 123456789L);
             String json = objectMapper.writeValueAsString(orderId);
-            assertEquals("{" + "\"venue\":\"krxGeneral\"," + "\"orderId\":123456789}", json);
+
+
+            // Parse back to verify structure
+            assertTrue(json.contains("\"venue\":\"krxGeneral\""), () -> "Expected venue not found in JSON: " + json);
+            assertTrue(json.contains("\"venueId\":1"), () -> "Expected venueId not found in JSON: " + json);
+            assertTrue(json.contains("\"orderId\":123456789"), () -> "Expected orderId not found in JSON: " + json);
+            assertTrue(json.contains("\"combinedId\":72057594161384725"), () -> "Expected combinedId not found in JSON: " + json);
+        }
+
+        @Test
+        @DisplayName("Test serialization of different venue correctly")
+        void testSerializationDifferentVenue() throws Exception {
+            OrderId[] orderIds = {
+                new OrderId(0L, 100L),
+                new OrderId(1L, 200L),
+                new OrderId(2L, 300L),
+                new OrderId(3L, 400L)
+            };
+
+            String[] expectedVenues = {"dummy", "krxGeneral", "krxKts", "smb"};
+
+            for (int i = 0; i < orderIds.length; i++) {
+                String json = objectMapper.writeValueAsString(orderIds[i]);
+                assertTrue(json.contains("\"venue\":\"" + expectedVenues[i] + "\""));
+                assertTrue(json.contains("\"venueId\":" + i));
+            }
         }
 
         @Test
         @DisplayName("Test deserialization of OrderId")
         void testDeserialization() throws Exception {
-            String json = "{" + "\"venue\":\"krxGeneral\"," + "\"orderId\":123456789}";
+            String json = """
+                    {
+                        "venue": "krxGeneral",
+                        "venueId": 2,
+                        "orderId": 54321,
+                        "combinedId": 144115188075910193
+                    }
+                    """;
             OrderId orderId = objectMapper.readValue(json, OrderId.class);
-            assertEquals(123456789L, orderId.orderId());
-            assertEquals("krxGeneral", orderId.venueName());
+
+            assertEquals(2L, orderId.venueId());
+            assertEquals(54321L, orderId.orderId());
+            assertEquals("krxKts", orderId.venueName());
         }
     }
 
