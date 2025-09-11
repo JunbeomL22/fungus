@@ -1,5 +1,6 @@
 package com.junbeom.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -20,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @DisplayName("UniqueId Tests")
 class UniqueIdTest {
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
-        // Note: We can't easily clear the cache between tests due to static nature,
-        // but tests are designed to work regardless of cache state
+        objectMapper = new ObjectMapper();
     }
 
     @Nested
