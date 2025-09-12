@@ -31,6 +31,16 @@ import java.io.IOException;
  *   <li>Simple validation and range checking</li>
  * </ul>
  *
+ * <p><strong>Memory Alignment and Performance:</strong></p>
+ * <p>The primary design goal is optimal memory alignment and cache efficiency. By encoding
+ * both venue and order information in a single 64-bit Long (8 bytes), this class ensures:</p>
+ * <ul>
+ *   <li>Perfect alignment with CPU word boundaries on 64-bit systems</li>
+ *   <li>Minimal memory footprint - only 8 bytes regardless of venue/order values</li>
+ *   <li>Cache-friendly access patterns with single memory read operations</li>
+ *   <li>Optimal performance in high-frequency trading scenarios where memory access speed is critical</li>
+ * </ul>
+ *
  * <p>Venue identification is performed by extracting the leading 8 bits and mapping
  * them to predefined venue constants.</p>
  *

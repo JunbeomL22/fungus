@@ -134,3 +134,9 @@ All public APIs include comprehensive Javadoc with:
 - Consider memory allocation patterns in hot paths
 - Validate thread safety under concurrent load
 - Test with realistic data sizes and access patterns
+
+### Documentation Rules
+- location documents/items
+- rules
+    - File Location must be under the title with link
+    - the md File must be linked to the documents/src/README.md
