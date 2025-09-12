@@ -38,6 +38,15 @@ class UniqueIdTest {
             String json = objectMapper.writeValueAsString(id);
             assertEquals("\"test\"", json, "Serialized JSON: " + json);
         }
+
+        @Test
+        @DisplayName("Should deserialize JSON to UniqueId")
+        void shouldDeserializeFromJson() throws Exception {
+            String json = "\"test\"";
+            UniqueId id = objectMapper.readValue(json, UniqueId.class);
+            assertNotNull(id);
+            assertEquals("test", id.toString());
+        }
     }
 
     @Nested
