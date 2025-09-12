@@ -39,11 +39,12 @@ public class OrderIdHashBenchmark {
         
         // Generate test data with realistic venue and order ID values
         for (int i = 0; i < ARRAY_SIZE; i++) {
-            Long venue = (long) (random.nextInt(4)); // 0-3 (dummy, krxGeneral, krxKts, smb)
+            int intVenue = random.nextInt(4); // 0-3 (dummy, krxGeneral, krxKts, smb)
+            Long venue = (long) intVenue;
             Long orderId = random.nextLong() & 0x00FFFFFFFFFFFFFFL; // 56-bit order ID
             
             orderIds[i] = new OrderId(venue, orderId);
-            plainOrderIds[i] = new PlainOrderId(venue, orderId);
+            plainOrderIds[i] = new PlainOrderId(intVenue, orderId);
         }
     }
     

@@ -21,15 +21,15 @@ import java.util.Objects;
  * @since 2025-09-12
  */
 public class PlainOrderId {
-    public static final Long dummyVenue = 0L;
-    public static final Long krxGeneral = 1L;
-    public static final Long krxKts = 2L;
-    public static final Long smb = 3L;
+    public static final int dummyVenue = 0;
+    public static final int krxGeneral = 1;
+    public static final int krxKts = 2;
+    public static final int smb = 3;
 
-    private final Long venueId;
-    private final Long orderId;
+    private final int venueId;
+    private final long orderId;
 
-    public PlainOrderId(Long venueId, Long orderId) {
+    public PlainOrderId(int venueId, long orderId) {
         if (venueId < 0 || venueId > 0xFF) {
             throw new IllegalArgumentException("Venue must be between 0 and 255");
         }
@@ -42,7 +42,7 @@ public class PlainOrderId {
      *
      * @return the venue ID (8-bit value stored as Long)
      */
-    public Long venueId() {
+    public int venueId() {
         return venueId;
     }
 
@@ -51,7 +51,7 @@ public class PlainOrderId {
      *
      * @return the order ID
      */
-    public Long orderId() {
+    public long orderId() {
         return orderId;
     }
 
@@ -61,13 +61,13 @@ public class PlainOrderId {
      * @return the venue name as a string
      */
     public String venueName() {
-        if (venueId.equals(dummyVenue)) {
+        if (venueId == dummyVenue) {
             return "dummy";
-        } else if (venueId.equals(krxGeneral)) {
+        } else if (venueId == krxGeneral) {
             return "krxGeneral";
-        } else if (venueId.equals(krxKts)) {
+        } else if (venueId == krxKts) {
             return "krxKts";
-        } else if (venueId.equals(smb)) {
+        } else if (venueId == smb) {
             return "smb";
         } else {
             return "unknown";
@@ -79,7 +79,7 @@ public class PlainOrderId {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         PlainOrderId that = (PlainOrderId) obj;
-        return Objects.equals(venueId, that.venueId) && Objects.equals(orderId, that.orderId);
+        return venueId == that.venueId && orderId == that.orderId;
     }
     
     @Override
