@@ -1,4 +1,4 @@
-package com.junbeom.common;
+package com.junbeom.common.order;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;

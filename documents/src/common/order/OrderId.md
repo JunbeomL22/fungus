@@ -1,6 +1,6 @@
 # OrderId
 
-**File Location:** [src/main/java/com/junbeom/common/OrderId.java](../../../src/main/java/com/junbeom/common/OrderId.java)
+**File Location:** [src/main/java/com/junbeom/common/order/OrderId.java](../../../../src/main/java/com/junbeom/common/order/OrderId.java)
 
 A unique order identifier that efficiently encodes both venue and order information within a single 64-bit Long value, enabling differentiation between multiple trading venues.
 

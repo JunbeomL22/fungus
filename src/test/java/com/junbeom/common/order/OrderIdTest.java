@@ -1,4 +1,4 @@
-package com.junbeom.common;
+package com.junbeom.common.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,9 +10,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 // import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Nested;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static com.junbeom.common.OrderId.venueMask;
-import static com.junbeom.common.OrderId.venueShift;
-import static com.junbeom.common.OrderId.orderMask;
+import static com.junbeom.common.order.OrderId.venueMask;
+import static com.junbeom.common.order.OrderId.venueShift;
+import static com.junbeom.common.order.OrderId.orderMask;
 
 @DisplayName("OrderId Class Tests")
 public class OrderIdTest {
