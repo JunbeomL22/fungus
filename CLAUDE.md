@@ -58,7 +58,7 @@ A highly efficient string interning system that stores strings as 64-bit integer
 - **Key Methods**: `fromString()`, `toString()`, `add()`, `merged()`
 - **Performance**: Fixed 8-byte memory footprint regardless of string length
 
-#### OrderId Class (`src/main/java/com/junbeom/common/OrderId.java`)
+#### OrderId Class (`src/main/java/com/junbeom/common/order/OrderId.java`)
 Encodes venue and order information in a single 64-bit Long:
 - **Bit Structure**: 8-bit venue ID (bits 56-63) + 56-bit order ID (bits 0-55)
 - **Venue Support**: dummy, krxDrv, krxKts, smb venues

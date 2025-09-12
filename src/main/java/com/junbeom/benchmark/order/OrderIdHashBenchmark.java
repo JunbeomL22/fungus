@@ -1,4 +1,4 @@
-package com.junbeom.benchmark;
+package com.junbeom.benchmark.order;
 
 import com.junbeom.common.order.OrderId;
 import org.openjdk.jmh.annotations.*;
@@ -21,12 +21,12 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Benchmark)
-@Fork(value = 1, warmups = 1)
-@Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Fork(value = 1, warmups = 0)
+@Warmup(iterations = 1, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 3, time = 500, timeUnit = TimeUnit.MILLISECONDS)
 public class OrderIdHashBenchmark {
     
-    private static final int ARRAY_SIZE = 10000;
+    private static final int ARRAY_SIZE = 1000;
     private OrderId[] orderIds;
     private PlainOrderId[] plainOrderIds;
     private Random random;
@@ -45,20 +45,6 @@ public class OrderIdHashBenchmark {
             
             orderIds[i] = new OrderId(venue, orderId);
             plainOrderIds[i] = new PlainOrderId(intVenue, orderId);
-        }
-    }
-    
-    @Benchmark
-    public void hashCodeOrderId(Blackhole blackhole) {
-        for (OrderId orderId : orderIds) {
-            blackhole.consume(orderId.hashCode());
-        }
-    }
-    
-    @Benchmark
-    public void hashCodePlainOrderId(Blackhole blackhole) {
-        for (PlainOrderId plainOrderId : plainOrderIds) {
-            blackhole.consume(plainOrderId.hashCode());
         }
     }
     
@@ -109,7 +95,7 @@ public class OrderIdHashBenchmark {
      */
     @Benchmark
     public void randomHashOrderId(Blackhole blackhole) {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             int index = random.nextInt(ARRAY_SIZE);
             blackhole.consume(orderIds[index].hashCode());
         }
@@ -117,7 +103,7 @@ public class OrderIdHashBenchmark {
     
     @Benchmark
     public void randomHashPlainOrderId(Blackhole blackhole) {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             int index = random.nextInt(ARRAY_SIZE);
             blackhole.consume(plainOrderIds[index].hashCode());
         }

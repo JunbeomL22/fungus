@@ -3,7 +3,16 @@
     "allow": [
       "Bash(find:*)",
       "Bash(cat:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(mvn clean:*)",
+      "Bash(mvn exec:java:*)",
+      "Bash(mvn dependency:copy-dependencies:*)",
+      "Bash(java:*)",
+      "Bash(chmod:*)",
+      "Bash(mv:*)",
+      "Bash(sed:*)",
+      "Bash(targetdependency*)",
+      "Bash(com.junbeom.benchmark.SimpleHashBenchmark)"
     ],
     "deny": [],
     "ask": []
