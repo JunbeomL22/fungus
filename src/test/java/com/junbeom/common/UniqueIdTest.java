@@ -29,6 +29,18 @@ class UniqueIdTest {
     }
 
     @Nested
+    @DisplayName("Serialization/Deserialization Tests")
+    class SerializationTests {
+        @Test
+        @DisplayName("Should serialize UniqueId to JSON")
+        void shouldSerializeToJson() throws Exception {
+            UniqueId id = UniqueId.fromString("test");
+            String json = objectMapper.writeValueAsString(id);
+            assertEquals("\"test\"", json, "Serialized JSON: " + json);
+        }
+    }
+
+    @Nested
     @DisplayName("Basic Functionality Tests")
     class BasicFunctionalityTests {
 
