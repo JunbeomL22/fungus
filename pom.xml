@@ -115,7 +115,14 @@
               <reportFormat>brief</reportFormat>
               <useFile>true</useFile>
               <printSummary>true</printSummary>
-              
+              <argLine>
+                  --add-opens java.base/java.lang=ALL-UNNAMED
+                  --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                  --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                  --add-opens java.base/java.io=ALL-UNNAMED
+                  --add-opens java.base/java.nio=ALL-UNNAMED
+                  --add-opens java.base/sun.security.action=ALL-UNNAMED
+              </argLine>
               <!-- 더 자세한 출력 -->
               <redirectTestOutputToFile>false</redirectTestOutputToFile>
               <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
