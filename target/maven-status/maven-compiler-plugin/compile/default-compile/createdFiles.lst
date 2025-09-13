@@ -1,6 +1,7 @@
 com\junbeom\benchmark\jmh_generated\UniqueIdBenchmark_equalityUniqueId_jmhTest.class
 com\junbeom\App.class
 com\junbeom\benchmark\order\jmh_generated\OrderIdHashBenchmark_randomHashOrderId_jmhTest.class
+WorkerAwareDataBufferException.class
 com\junbeom\benchmark\jmh_generated\UniqueIdBenchmark_hashSetIterationUniqueId_jmhTest.class
 com\junbeom\benchmark\order\jmh_generated\OrderIdHashBenchmark_jmhType_B3.class
 com\junbeom\common\order\OrderId.class
@@ -8,6 +9,7 @@ com\junbeom\benchmark\jmh_generated\UniqueIdBenchmark_jmhType_B2.class
 com\junbeom\common\UniqueId$1.class
 com\junbeom\benchmark\jmh_generated\UniqueIdBenchmark_hashAllUniqueIds_jmhTest.class
 com\junbeom\benchmark\order\jmh_generated\OrderIdHashBenchmark_jmhType.class
+WorkerAwareDataBuffer.class
 com\junbeom\benchmark\order\jmh_generated\OrderIdHashBenchmark_equalsPlainOrderId_jmhTest.class
 META-INF\CompilerHints
 com\junbeom\common\UniqueId$UniqueIdDeserializer.class
@@ -33,3 +35,4 @@ com\junbeom\benchmark\order\OrderIdHashBenchmark.class
 com\junbeom\common\order\OrderId$OrderIdDeserializer.class
 META-INF\BenchmarkList
 com\junbeom\common\UniqueId$UniqueIdSerializer.class
+WorkerId.class
