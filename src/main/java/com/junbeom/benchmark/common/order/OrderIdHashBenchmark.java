@@ -1,4 +1,4 @@
-package com.junbeom.benchmark.order;
+package com.junbeom.benchmark.common.order;
 
 import com.junbeom.common.order.OrderId;
 import org.openjdk.jmh.annotations.*;

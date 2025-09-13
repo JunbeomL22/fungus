@@ -34,10 +34,10 @@ class TimeStampTest {
 
     @Test
     void testGetSystemNanoTime() {
-        long nano = TimeStamp.getCurrentSystemNanoTime();
+        long nano = TimeStamp.getCurrentSystemUnixNano();
         assertTrue(nano > 0);
 
-        nano = TimeStamp.getCurrentSystemNanoTime();
+        nano = TimeStamp.getCurrentUnixNano();
         assertTrue(nano > 0);
     }
 

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(mvn test:*)",
       "Bash(mvn clean:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(mvn exec:java -Dexec.mainClass=\"org.openjdk.jmh.Main\" -Dexec.args=\"src.main.java.com.junbeom.benchmark.time.UnixNanoBenchmark\" -Dexec.classpathScope=main)",
+      "Bash(mvn exec:java -Dexec.mainClass=\"org.openjdk.jmh.Main\" -Dexec.args=\".*Benchmark\")"
     ],
     "deny": [],
     "ask": []

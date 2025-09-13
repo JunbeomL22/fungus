@@ -41,7 +41,7 @@ public class TimeStamp {
         TimeStamp.offsetHour = offsetHour;
     }
 
-    public static long getCurrentSystemNanoTime() {
+    public static long getCurrentSystemUnixNano() {
         return System.nanoTime();
     }
 

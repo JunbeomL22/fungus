@@ -1,4 +1,4 @@
-package com.junbeom.benchmark.order;
+package com.junbeom.benchmark.common.order;
 
 import java.util.Objects;
 
