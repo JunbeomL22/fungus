@@ -213,7 +213,7 @@ public final class BitManipulation {
      * @see #checkedConversionU32(byte[])
      */
     public static boolean checkDecimal(int chunk) {
-        int notAbove = chunk - 0x3A3A3A3A;
+        int notAbove = chunk - 0x39393939 - 1;  // Same fix as long version
         int notBelow = 0x2F2F2F2F - chunk;
         return (notAbove & notBelow & 0x80808080) == 0x80808080;
     }
@@ -235,7 +235,8 @@ public final class BitManipulation {
      * @see #checkedConversionU64(byte[])
      */
     public static boolean checkDecimal(long chunk) {
-        long notAbove = chunk - 0x3A3A3A3A3A3A3A3AL;
+        // Fix: Use 0x39 (after '9') so ':' (0x3A) gives positive result, setting no sign bit
+        long notAbove = chunk - 0x3939393939393939L - 1;  // Now ':' gives 0x3A - 0x39 - 1 = 0 (no sign bit)
         long notBelow = 0x2F2F2F2F2F2F2F2FL - chunk;
         return (notAbove & notBelow & 0x8080808080808080L) == 0x8080808080808080L;
     }

@@ -192,9 +192,9 @@ class BitManipulationTest {
             @DisplayName("Invalid decimal digits")
             void testInvalidDecimalsInt() {
                 // Test with non-decimal characters
-                assertFalse(BitManipulation.checkDecimal(0x41414141)); // "AAAA"
+                assertFalse(BitManipulation.checkDecimal(0x31314141)); // "11AA"
                 assertFalse(BitManipulation.checkDecimal(0x20202020)); // "    "
-                assertFalse(BitManipulation.checkDecimal(0x3A3A3A3A)); // "::::"
+                assertFalse(BitManipulation.checkDecimal(0x313A3A3A)); // "1:::"
                 assertFalse(BitManipulation.checkDecimal(0x2F2F2F2F)); // "////"
             }
 
