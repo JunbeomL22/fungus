@@ -110,62 +110,74 @@ mvn -pl benchmarks clean compile
 ### Run All Benchmarks
 
 ```bash
-# Build and run all benchmarks (this will show benchmark discovery)
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=""
+# Build all modules first (required)
+mvn clean install
 
-# Run all benchmarks with quick settings
+# Run all benchmarks with quick settings using JAR approach (RECOMMENDED)
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main ".*Benchmark.*" -f 1 -wi 1 -i 1
+
+# Alternative: Maven exec approach (may have classpath issues)
 mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.* -f 1 -wi 1 -i 1"
 ```
 
 ### Run Specific Benchmarks
 
 ```bash
+# BitManipulation benchmarks (RECOMMENDED JAR approach)
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -f 1 -wi 1 -i 1
+
 # UniqueId benchmarks
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark.* -f 1 -wi 1 -i 1"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main UniqueIdBenchmark -f 1 -wi 1 -i 1
 
 # OrderId benchmarks
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="OrderIdHashBenchmark.* -f 1 -wi 1 -i 1"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main OrderIdHashBenchmark -f 1 -wi 1 -i 1
 
 # Unix timestamp benchmarks
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UnixNanoBenchmark.* -f 1 -wi 1 -i 1"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main UnixNanoBenchmark -f 1 -wi 1 -i 1
+
+# Alternative Maven approach (may have classpath issues):
+# mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="BitManipulationBenchmark -f 1 -wi 1 -i 1"
 ```
 
 ### Benchmark Configuration Options
 
 ```bash
-# Quick benchmark run (1 warmup, 1 iteration)
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -f 1 -wi 1 -i 1"
+# Quick benchmark run (1 warmup, 1 iteration) - JAR approach
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -f 1 -wi 1 -i 1
 
 # Thorough benchmark run (3 forks, 5 warmups, 10 iterations)
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -f 3 -wi 5 -i 10"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -f 3 -wi 5 -i 10
 
 # Benchmark with specific thread count
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -t 4"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -t 4
 
 # Benchmark with profiler
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -prof gc"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -prof gc
 ```
 
 ### Benchmark Output Options
 
 ```bash
 # Output results to JSON
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -rf json -rff results.json"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -rf json -rff results.json
 
 # Output results to CSV
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -rf csv -rff results.csv"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -rf csv -rff results.csv
 ```
 
 ### Alternative Benchmark Execution
 
 ```bash
-# Using JAR directly (after mvn install)
+# Using JAR directly with classpath (RECOMMENDED - same as above examples)
 cd benchmarks
-java -jar target/fungus-benchmarks-1.0-SNAPSHOT.jar UniqueIdBenchmark
+java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark
 
 # With JVM options
 cd benchmarks
-java -Xmx2g -jar target/fungus-benchmarks-1.0-SNAPSHOT.jar UniqueIdBenchmark -f 1 -wi 2 -i 3
+java -Xmx2g -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -f 1 -wi 2 -i 3
+
+# Note: Plain JAR execution (java -jar) may not work due to missing dependencies
+# Use the -cp approach instead for reliable execution
 ```
 
 ## Documentation Commands
@@ -201,12 +213,12 @@ mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args
 
 ```bash
 # 1. Baseline performance test
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -rf json -rff baseline.json"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -rf json -rff baseline.json
 
 # 2. Make performance improvements
 # 3. Test performance again
 mvn clean install
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark -rf json -rff improved.json"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main BitManipulationBenchmark -rf json -rff improved.json
 
 # 4. Compare results (manual comparison or using JMH tools)
 ```
@@ -220,7 +232,7 @@ mvn compile                         # Compile all modules
 mvn -pl core test                   # Run all unit tests
 mvn install                         # Install to local repository
 mvn -pl core javadoc:javadoc        # Generate documentation
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.* -f 1 -wi 1 -i 1"
+cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main ".*Benchmark.*" -f 1 -wi 1 -i 1
 ```
 
 ## Troubleshooting
@@ -232,16 +244,17 @@ mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args
    mvn -pl core install
    ```
 
-2. **JMH ClassNotFoundException**: This error occurs when JMH can't find the ForkedMain class. Run benchmarks from the project root:
+2. **JMH ClassNotFoundException**: This error occurs when JMH can't find the ForkedMain class. Use the JAR approach instead of Maven exec:
    ```bash
    # Full build ensures all dependencies are properly installed
    mvn clean install
-   # Then run benchmarks
-   mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.* -f 1 -wi 1 -i 1"
 
-   # Alternative: Run with JAR file (may work better in some environments)
-   cd benchmarks
-   java -jar target/fungus-benchmarks-1.0-SNAPSHOT.jar
+   # RECOMMENDED: Use JAR with classpath approach
+   cd benchmarks && java -cp "target/fungus-benchmarks-1.0-SNAPSHOT.jar;target/dependency/*" org.openjdk.jmh.Main ".*Benchmark.*" -f 1 -wi 1 -i 1
+
+   # If Maven exec fails with classpath issues, always use the JAR approach above
+   # The Maven exec approach may have classpath problems:
+   # mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.* -f 1 -wi 1 -i 1"
    ```
 
 3. **Project Structure**: The project uses Maven standard structure with nested `com/junbeom/` packages. The benchmarks module no longer has an extra `benchmark` folder - all classes are directly under `src/main/java/com/junbeom/`.

@@ -153,3 +153,8 @@ All public APIs include comprehensive Javadoc with:
 - rules
     - File Location must be under the title with link
     - the md File must be linked to the documents/core/README.md
+
+### JMH Configuration
+- 2 warmup iterations
+- 3 measurement iterations
+- Don't be too long
