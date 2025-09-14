@@ -1,11 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mvn test:*)",
+      "Bash(cp:*)",
       "Bash(mvn clean:*)",
-      "Bash(mkdir:*)",
-      "Bash(mvn exec:java -Dexec.mainClass=\"org.openjdk.jmh.Main\" -Dexec.args=\"src.main.java.com.junbeom.benchmark.time.UnixNanoBenchmark\" -Dexec.classpathScope=main)",
-      "Bash(mvn exec:java -Dexec.mainClass=\"org.openjdk.jmh.Main\" -Dexec.args=\".*Benchmark\")"
+      "Bash(mvn:*)",
+      "Bash(java:*)",
+      "Bash(cat:*)",
+      "Bash(jar tf target/dependency/jmh-core-1.37.jar)",
+      "Bash(mv benchmarks/src/main/java/com/junbeom/benchmark/* benchmarks/src/main/java/com/junbeom/)",
+      "Bash(rmdir benchmarks/src/main/java/com/junbeom/benchmark)",
+      "Bash(mv core/src/main/java/com/conversion core/src/main/java/com/junbeom/)",
+      "Bash(mv core/src/main/java/com/data core/src/main/java/com/junbeom/)",
+      "Bash(mv core/src/main/java/com/junbeom/App.java core/src/main/java/com/junbeom/)",
+      "Bash(mv core/src/main/java/com/order core/src/main/java/com/junbeom/)",
+      "Bash(mv core/src/main/java/com/time core/src/main/java/com/junbeom/)",
+      "Bash(mv core/src/main/java/com/UniqueId.java core/src/main/java/com/junbeom/)",
+      "Bash(rmdir core/src/main/java/com)"
     ],
     "deny": [],
     "ask": []

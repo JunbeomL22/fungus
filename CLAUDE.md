@@ -4,53 +4,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Java 21 Maven project focused on high-performance data structures and utilities for trading systems. The project emphasizes memory efficiency, thread safety, and performance optimization.
+This is a Java 21 Maven multi-module project focused on high-performance data structures and utilities for trading systems. The project emphasizes memory efficiency, thread safety, and performance optimization.
+
+### Module Structure
+- **core/**: Core data structures and utilities with unit tests
+- **benchmarks/**: JMH performance benchmarks (separate from main codebase)
 
 ## Development Commands
 
 ### Build and Test
 ```bash
-# Full build
+# Full build (all modules)
 mvn clean compile
 
-# Run all tests
+# Run all tests (core module only)
 mvn test
+# OR specifically for core module
+mvn -pl core test
 
 # Run specific test class
-mvn test -Dtest=UniqueIdTest
-mvn test -Dtest=OrderIdTest
+mvn -pl core test -Dtest=UniqueIdTest
+mvn -pl core test -Dtest=OrderIdTest
 
 # Run specific test method
-mvn test -Dtest=UniqueIdTest#testUniqueIdEquality
+mvn -pl core test -Dtest=UniqueIdTest#testUniqueIdEquality
 
 # Run tests with verbose output
-mvn test -Dtest=UniqueIdTest -Dmaven.surefire.debug=true
+mvn -pl core test -Dtest=UniqueIdTest -Dmaven.surefire.debug=true
 ```
 
 ### Performance Testing
-The project includes JMH (Java Microbenchmark Harness) for performance testing:
+The benchmarks are now in a separate module:
 ```bash
-# Compile and run benchmarks (when benchmark classes exist)
+# Build all modules first
 mvn clean compile
-mvn exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.*"
+
+# Run benchmarks
+mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.*"
+
+# Run specific benchmark
+mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark"
 ```
 
 ### Documentation
 ```bash
-# Generate Javadoc
+# Generate Javadoc for all modules
 mvn javadoc:javadoc
+
+# Generate Javadoc for core module only
+mvn -pl core javadoc:javadoc
 ```
 
 ## Core Architecture
 
 ### Package Structure
-- `com.junbeom.common`: Core data structures and utilities
-- `com.junbeom.utils`: Utility classes and helper functions
-- `com.junbeom.benchmark`: JMH performance benchmarks
+- **core/**: `com.junbeom.common`, `com.junbeom.conversion`, `com.junbeom.data` - Core data structures and utilities
+- **benchmarks/**: `com.junbeom.benchmark` - JMH performance benchmarks
 
 ### Key Components
 
-#### UniqueId Class (`src/main/java/com/junbeom/common/UniqueId.java`)
+#### UniqueId Class (`core/src/main/java/com/junbeom/common/UniqueId.java`)
 A highly efficient string interning system that stores strings as 64-bit integers internally:
 - **Purpose**: Memory-efficient string storage with O(1) equality checks
 - **Thread Safety**: Uses ConcurrentHashMap for lock-free operations
@@ -58,7 +71,7 @@ A highly efficient string interning system that stores strings as 64-bit integer
 - **Key Methods**: `fromString()`, `toString()`, `add()`, `merged()`
 - **Performance**: Fixed 8-byte memory footprint regardless of string length
 
-#### OrderId Class (`src/main/java/com/junbeom/common/order/OrderId.java`)
+#### OrderId Class (`core/src/main/java/com/junbeom/common/order/OrderId.java`)
 Encodes venue and order information in a single 64-bit Long:
 - **Bit Structure**: 8-bit venue ID (bits 56-63) + 56-bit order ID (bits 0-55)
 - **Venue Support**: dummy, krxDrv, krxKts, smb venues
@@ -135,8 +148,8 @@ All public APIs include comprehensive Javadoc with:
 - Validate thread safety under concurrent load
 - Test with realistic data sizes and access patterns
 
-### Documentation Rules
-- location documents/items
+### Documentation Rules for Core
+- location documents/core
 - rules
     - File Location must be under the title with link
-    - the md File must be linked to the documents/src/README.md
+    - the md File must be linked to the documents/core/README.md

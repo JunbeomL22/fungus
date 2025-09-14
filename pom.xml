@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="https://maven.apache.org/POM/4.0.0" 
+<project xmlns="https://maven.apache.org/POM/4.0.0"
   xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -7,15 +7,22 @@
   <groupId>com.junbeom</groupId>
   <artifactId>fungus</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <name>fungus</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
+
+  <modules>
+    <module>core</module>
+    <module>benchmarks</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
     <jmh.version>1.37</jmh.version>
+    <junit.version>5.11.0</junit.version>
+    <jackson.version>2.17.2</jackson.version>
   </properties>
 
   <dependencyManagement>
@@ -24,54 +31,37 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.11.0</version>
+        <version>${junit.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <!-- JMH dependencies -->
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-core</artifactId>
+        <version>${jmh.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-generator-annprocess</artifactId>
+        <version>${jmh.version}</version>
+      </dependency>
+      <!-- Jackson JSON serialization -->
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- Optionally: parameterized tests support -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- JMH dependencies -->
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-core</artifactId>
-      <version>${jmh.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-generator-annprocess</artifactId>
-      <version>${jmh.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- Jackson JSON serialization -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.17.2</version>
-    </dependency>
-      </dependencies>
-
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.4.0</version>
         </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.3.1</version>
@@ -92,7 +82,6 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>3.1.2</version>
         </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.12.1</version>
@@ -105,96 +94,41 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.3.0</version>
           <configuration>
-              <!-- HTML 리포트 생성 활성화 -->
-              <reportFormat>brief</reportFormat>
-              <useFile>true</useFile>
-              <printSummary>true</printSummary>
-              <argLine>
-                  --add-opens java.base/java.lang=ALL-UNNAMED
-                  --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-                  --add-opens java.base/sun.nio.ch=ALL-UNNAMED
-                  --add-opens java.base/java.io=ALL-UNNAMED
-                  --add-opens java.base/java.nio=ALL-UNNAMED
-                  --add-opens java.base/sun.security.action=ALL-UNNAMED
-              </argLine>
-              <!-- 더 자세한 출력 -->
-              <redirectTestOutputToFile>false</redirectTestOutputToFile>
-              <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-          </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.4.2</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.junbeom.benchmark.UniqueIdBenchmark</mainClass>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>dependency/</classpathPrefix>
-            </manifest>
-          </archive>
-          <argLine>
+            <reportFormat>brief</reportFormat>
+            <useFile>true</useFile>
+            <printSummary>true</printSummary>
+            <argLine>
               --add-opens java.base/java.lang=ALL-UNNAMED
               --add-opens java.base/java.lang.reflect=ALL-UNNAMED
               --add-opens java.base/sun.nio.ch=ALL-UNNAMED
               --add-opens java.base/java.io=ALL-UNNAMED
               --add-opens java.base/java.nio=ALL-UNNAMED
               --add-opens java.base/sun.security.action=ALL-UNNAMED
-          </argLine>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.6.3</version>
-        <configuration>
+            </argLine>
+            <redirectTestOutputToFile>false</redirectTestOutputToFile>
+            <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.6.3</version>
+          <configuration>
             <source>21</source>
-            <!-- <target>21</target> 제거 - deprecated -->
             <encoding>UTF-8</encoding>
             <charset>UTF-8</charset>
             <docencoding>UTF-8</docencoding>
             <doclint>none</doclint>
             <failOnError>false</failOnError>
             <detectOfflineLinks>false</detectOfflineLinks>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.7.0</version>
-        <executions>
-          <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/dependency</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.7.0</version>
+        </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/dependency</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 </project>
