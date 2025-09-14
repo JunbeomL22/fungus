@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import net.openhft.chronicle.core.time.SystemTimeProvider;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -46,7 +45,7 @@ public class TimeStamp {
     }
 
     public static long getCurrentUnixNano() {
-        return SystemTimeProvider.INSTANCE.currentTimeNanos();
+        return System.nanoTime();
     }
 
     public long getUnixNanoValue() {

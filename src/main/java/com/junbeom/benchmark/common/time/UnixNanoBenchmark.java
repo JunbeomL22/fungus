@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * JMH benchmark for comparing time nanosecond retrieval methods.
- * Compares System.nanoTime() vs SystemTimeProvider.currentTimeNanos()
+ * Tests System.nanoTime() method performance
  */
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -23,12 +23,6 @@ import java.util.concurrent.TimeUnit;
 })
 @State(Scope.Benchmark)
 public class UnixNanoBenchmark {
-
-    @Benchmark
-    public void getCurrentSystemUnixNano(Blackhole bh) {
-        long nano = TimeStamp.getCurrentSystemUnixNano();
-        bh.consume(nano);
-    }
 
     @Benchmark
     public void getCurrentUnixNano(Blackhole bh) {

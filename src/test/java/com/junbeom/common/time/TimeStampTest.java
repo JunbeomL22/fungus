@@ -3,7 +3,6 @@ package com.junbeom.common.time;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.openhft.chronicle.core.time.SystemTimeProvider;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,24 +40,6 @@ class TimeStampTest {
         assertTrue(nano > 0);
     }
 
-    @Test
-    void debugChronicleInit() {
-        try {
-            System.out.println("Java version: " + System.getProperty("java.version"));
-            System.out.println("OS: " + System.getProperty("os.name"));
-            
-            long nano = SystemTimeProvider.INSTANCE.currentTimeNanos();
-            System.out.println("Success: " + nano);
-            
-        } catch (ExceptionInInitializerError e) {
-            System.out.println("InitializerError cause: " + e.getCause());
-            e.getCause().printStackTrace();
-            
-            // 폴백
-            long nano = System.nanoTime();
-            System.out.println("Fallback nano: " + nano);
-        }
-    }
 
     @Test
     void testSetOffsetHour() {

@@ -1,4 +1,4 @@
-package com.junbeom.conversion.fixedformat;
+package com.junbeom.conversion.fixed_format;
 
 public class ParseException {
     
