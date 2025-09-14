@@ -158,3 +158,7 @@ All public APIs include comprehensive Javadoc with:
 - 2 warmup iterations
 - 3 measurement iterations
 - Don't be too long
+
+### Test
+- In test, do not include test on performance
+- also, focus on behavioral testing
