@@ -64,7 +64,7 @@ mvn -pl core javadoc:javadoc
 ### Key Components
 
 #### UniqueId Class (`core/src/main/java/com/junbeom/common/UniqueId.java`)
-A highly efficient string interning system that stores strings as 64-bit integers internally:
+A string interning system that stores strings as 64-bit integers internally:
 - **Purpose**: Memory-efficient string storage with O(1) equality checks
 - **Thread Safety**: Uses ConcurrentHashMap for lock-free operations
 - **Jackson Support**: Custom serializers handle both string and JSON object serialization

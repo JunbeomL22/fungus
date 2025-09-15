@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.Objects;
 
 /**
- * A highly efficient string interning system that reduces memory usage and improves performance.
+ * A string interning system that reduces memory usage and improves performance.
  * 
  * UniqueId stores strings as 64-bit integers internally, providing several key benefits:
  * 
