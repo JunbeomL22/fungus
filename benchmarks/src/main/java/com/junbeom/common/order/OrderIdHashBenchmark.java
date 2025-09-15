@@ -1,6 +1,5 @@
-package com.junbeom.benchmark.common.order;
+package com.junbeom.common.order;
 
-import com.junbeom.common.order.OrderId;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 

@@ -36,14 +36,14 @@ mvn -pl core test -Dtest=UniqueIdTest -Dmaven.surefire.debug=true
 ### Performance Testing
 The benchmarks are now in a separate module:
 ```bash
-# Build all modules first
-mvn clean compile
+# Build all modules and package benchmarks with dependencies
+mvn package -DskipTests
 
-# Run benchmarks
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args=".*Benchmark.*"
+# Run all benchmarks using the built JAR
+cd benchmarks && java -jar target/fungus-benchmarks-1.0-SNAPSHOT.jar ".*Benchmark.*"
 
 # Run specific benchmark
-mvn -pl benchmarks exec:java -Dexec.mainClass="org.openjdk.jmh.Main" -Dexec.args="UniqueIdBenchmark"
+cd benchmarks && java -jar target/fungus-benchmarks-1.0-SNAPSHOT.jar "UniqueIdBenchmark"
 ```
 
 ### Documentation
@@ -148,11 +148,17 @@ All public APIs include comprehensive Javadoc with:
 - Validate thread safety under concurrent load
 - Test with realistic data sizes and access patterns
 
+### Javadoc Rules
+- rules:
+    - avoid over-using term "high-performance"
+
 ### Documentation Rules for Core
-- location documents/core
+- location: documents/core
 - rules
     - File Location must be under the title with link
     - the md File must be linked to the documents/core/README.md
+    - avoid over-using term "high-performance"
+
 
 ### JMH Configuration
 - 2 warmup iterations

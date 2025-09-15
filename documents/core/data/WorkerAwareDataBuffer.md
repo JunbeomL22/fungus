@@ -167,9 +167,8 @@ buffer.readDone(workerId);
 3. **Memory visibility**: AtomicReference ensures proper memory visibility
 4. **No data races**: Bit manipulation prevents conflicting status updates
 
-## Performance Characteristics
+## Characteristics
 
-- **Time Complexity**: O(1) for all operations
 - **Space Complexity**: O(1) additional overhead per worker
 - **Scalability**: Supports up to 64 concurrent workers
 - **Memory Model**: Uses atomic operations for memory safety

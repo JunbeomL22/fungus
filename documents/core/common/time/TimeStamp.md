@@ -4,7 +4,7 @@
 
 ## Overview
 
-A high-performance timestamp implementation that stores time as nanoseconds since Unix epoch. This class provides efficient time representation with configurable timezone offset, suitable for trading systems and high-performance applications where precise timing and memory efficiency are critical.
+A timestamp implementation that stores time as nanoseconds since Unix epoch. This class provides efficient time representation with configurable timezone offset
 
 ## Key Features
 
@@ -20,7 +20,6 @@ A high-performance timestamp implementation that stores time as nanoseconds sinc
 ### Performance
 - O(1) time complexity for all operations
 - Fast comparison via numeric equality checks
-- Efficient JSON serialization with custom Jackson serializer
 
 ## Class Structure
 

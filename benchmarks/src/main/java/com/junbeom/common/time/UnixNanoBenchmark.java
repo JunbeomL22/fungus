@@ -1,4 +1,4 @@
-package com.junbeom.benchmark.common.time;
+package com.junbeom.common.time;
 
 import com.junbeom.common.time.TimeStamp;
 import org.openjdk.jmh.annotations.*;

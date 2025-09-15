@@ -1,4 +1,4 @@
-package com.junbeom.benchmark;
+package com.junbeom;
 
 import com.junbeom.common.UniqueId;
 import org.openjdk.jmh.annotations.*;
