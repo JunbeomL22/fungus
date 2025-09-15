@@ -161,8 +161,10 @@ All public APIs include comprehensive Javadoc with:
 
 
 ### JMH Configuration
-- 2 warmup iterations
-- 3 measurement iterations
+- location: benchmarks/src/main/java/com/junbeom/ -> and then the same structure of core
+- 1 fork
+- 0 warmup iterations
+- 1 measurement iterations
 - Don't be too long
 
 ### Test
